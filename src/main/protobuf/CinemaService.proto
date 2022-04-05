@@ -1,0 +1,56 @@
+syntax="proto3";
+
+package protobuf.demo.v1;
+
+option optimize_for= SPEED ;
+option java_package = "cn.scbc.protobuf.demo.v1";
+option java_multiple_files = true;
+
+message Model{
+
+    enum ModelType{
+      BIND  = 0;
+      JOINT_SEND = 1;
+      JOINT_REC = 2 ;
+      CHAT_SEND = 3 ;
+      CHAT_REC = 4;
+    }
+
+    ModelType dataType = 1 ;
+
+    oneof dataBody{
+      BindMessage bindMessage = 2 ;
+      JointMessage jointMessage = 3 ;
+      Joint joint = 4 ;
+      ChatRequest chatRequest = 5 ;
+      ChatResponse chatResponse = 6 ;
+    }
+
+}
+
+message BindMessage{
+  string number = 1;
+}
+
+message JointMessage{
+  int32 type = 1;
+  repeated string otherMember = 2 ;
+}
+
+message Joint{
+  int32 type = 1;
+}
+
+message ChatRequest{
+  string senderAvatar = 1 ;
+  string senderNickName = 2 ;
+  string chatMessage = 3 ;
+  repeated string otherMember = 4 ;
+}
+
+message ChatResponse{
+  string senderAvatar = 1 ;
+  string senderNickName = 2 ;
+  string chatMessage = 3 ;
+}
+
